@@ -25,13 +25,13 @@ struct ref_type<true, T> {
 template <typename T>
 struct ref_type<false, T> {
     
-  typedef add_lvalue_reference<add_const<T>> type;
+  typedef add_rvalue_reference<add_const<T>> type;
 };
 
 template <typename T>
 struct is_working {
 
-  static const bool value = is_same<T, add_const_ref<T>>::value;
+  static const bool value = is_same<T, typename add_const_ref<T>::type>::value;
 };
 
 template <typename T>
