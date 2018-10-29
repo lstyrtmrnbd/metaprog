@@ -7,7 +7,7 @@ int main(int argc, char** argv) {
   using namespace std;
   
   // Ch.2 Tests
-  cout << is_working<int>::value << endl;          // 0
-  cout << is_working<const char&>::value << endl;  // 1
-  cout << get_name<add_const_ref<int>::type>() << endl; // const int &
+  cout << zero::is_working<int>::value << endl;               // 0
+  cout << zero::is_working<int&>::value << endl;              // 1
+  cout << zero::is_working<const char&>::value << endl;       // 1
 }
