@@ -46,10 +46,33 @@ namespace zero {
 /**
  * 2-1
  * Write a ternary metafunction replace_type<c,x,y> that takes an
- * arbitrary compoud type 'c' as its first parameter, and replaces
+ * arbitrary compound type 'c' as its first parameter, and replaces
  * all occurrences of a type 'x' within 'c' with 'y'
  */
 
 namespace one {
 
+  template <class c, class x, class y>
+  struct replace_type {
+
+    typedef y tmp;
+
+    typedef typename conditional<is_reference<c>::value,
+				 typename add_lvalue_reference<tmp>::type,
+				 tmp>::type rtmp;
+
+    typedef typename conditional<is_pointer<c>::value,
+				 typename add_pointer<rtmp>::type,
+				 rtmp>::type rptmp;
+
+    typedef typename conditional<is_const<c>::value,
+				 typename add_const<rptmp>::type,
+				 rptmp>::type crptmp;
+    
+    typedef typename conditional<is_volatile<c>::value,
+				 typename add_volatile<crptmp>::type,
+				 crptmp>::type cvrptmp;
+
+    typedef cvrptmp type;
+  };
 }
