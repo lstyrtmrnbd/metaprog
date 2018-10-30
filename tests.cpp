@@ -4,7 +4,7 @@
 #include "ch2.hpp"
 #include "ch3.hpp"
 
-int main(int argc, char** argv) {
+int main() {
   using namespace std;
   
   // Ch.2 Tests
@@ -16,4 +16,10 @@ int main(int argc, char** argv) {
   typedef typename two::one::replace_type<const long&, long, float>::type one_test1;
   cout << get_name<one_test0>() << endl;
   cout << get_name<one_test1>() << endl;
+
+  typedef typename three::zero::test0<12345>::type three0;
+  const bool ic0 = three::zero::illegal_contents<101>::value;
+  const bool ic1 = three::zero::illegal_contents<123>::value;
+  cout << ic0 << endl;
+  cout << ic1 << endl;
 }
