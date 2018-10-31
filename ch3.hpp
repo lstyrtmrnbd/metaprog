@@ -21,6 +21,10 @@ namespace three {
     template <unsigned long N>
     struct binary {
 
+      static const int  digit = N%10;
+      static const bool check = (digit == 0 || digit == 1);
+      BOOST_STATIC_ASSERT(check);
+      
       static unsigned const value = binary<N/10>::value << 1 | N%10;
     };
 
@@ -28,22 +32,6 @@ namespace three {
     struct binary<0> {
 
       static unsigned const value = 0;
-    };
-
-    template <unsigned long N>
-    struct illegal_numeral {
-
-      static const int digit = N%10;
-
-      static const bool check = !(digit == 0 || digit == 1);
-
-      static const bool value = check || illegal_numeral<(N - (N%10))/10>::value;
-    };
-
-    template <>
-    struct illegal_numeral<0> {
-
-      static const bool value = false;
     };
     
     // examples

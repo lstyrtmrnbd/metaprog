@@ -17,8 +17,6 @@ int main() {
   cout << get_name<one_test0>() << endl;
   cout << get_name<one_test1>() << endl;
 
-  const bool ic0 = three::zero::illegal_numeral<101>::value;
-  const bool ic1 = three::zero::illegal_numeral<123>::value;
-  cout << ic0 << endl;
-  cout << ic1 << endl;
+  cout << three::zero::binary<101>::value << endl;
+  //cout << three::zero::binary<123>::value << endl; //FAILS COMPILE
 }
