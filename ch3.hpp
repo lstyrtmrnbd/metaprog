@@ -30,34 +30,22 @@ namespace three {
       static unsigned const value = 0;
     };
 
-    template <unsigned long N, class Vector>
-    struct fill_vector {
-
-      typedef typename fill_vector<(N - (N%10))/10,
-                                   typename push_back<Vector, int_<N%10>>::type>::type type;
-    };
-
-    template<class Vector>
-    struct fill_vector<0, Vector> {
-
-      typedef Vector type;
-    };
-
-    template<unsigned long N>
-    struct illegal_contents {
-
-      static const int count = count_if<fill_vector<N, vector<>>,
-                                        or_<not_<is_same<_, int_<0>>>,
-                                            not_<is_same<_, int_<1>>>>>::value;
-      static const bool value = (count != 0);
-    };
-
     template <unsigned long N>
-    struct test0 {
+    struct illegal_numeral {
 
-      typedef typename fill_vector<N, vector<>>::type type;
+      static const int digit = N%10;
+
+      static const bool check = !(digit == 0 || digit == 1);
+
+      static const bool value = check || illegal_numeral<(N - (N%10))/10>::value;
     };
 
+    template <>
+    struct illegal_numeral<0> {
+
+      static const bool value = false;
+    };
+    
     // examples
     unsigned const one   = binary<1>::value;
     unsigned const three = binary<11>::value;
