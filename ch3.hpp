@@ -1,12 +1,11 @@
 #include <boost/static_assert.hpp>
-#include <boost/mpl/count_if.hpp>
+#include <boost/mpl/arithmetic.hpp>
+#include <boost/mpl/assert.hpp>
+#include <boost/mpl/equal.hpp>
 #include <boost/mpl/int.hpp>
-#include <boost/mpl/logical.hpp>
-#include <boost/mpl/push_back.hpp>
-#include <boost/mpl/vector.hpp>
-#include <type_traits>
+#include <boost/mpl/transform.hpp>
+#include <boost/mpl/vector_c.hpp>
 
-using namespace std;
 using namespace boost::mpl;
 
 namespace three {
@@ -41,5 +40,30 @@ namespace three {
     unsigned const seven = binary<111>::value;
     unsigned const nine  = binary<1001>::value;
   }
-  
+
+  /**
+   * Turn vector_c<int,1,2,3> into a type sequence with elements (2,3,4)
+   * using transform
+   */
+  namespace one {
+
+    typedef vector_c<int,1,2,3> old_vec;
+
+    typedef typename transform<old_vec, boost::mpl::plus<_,int_<1>>>::type new_vec;
+
+    typedef typename boost::mpl::equal<new_vec, vector_c<int,2,3,4>>::type check;
+  }
+
+  /**
+   * Turn a vector_c<int,1,2,3> into a type sequence with elements (1,4,9)
+   * using transform
+   */
+  namespace two {
+
+    typedef vector_c<int,1,2,3> old_vec;
+
+    typedef typename transform<old_vec, boost::mpl::times<_1,_1>>::type new_vec;
+
+    typedef typename boost::mpl::equal<new_vec, vector_c<int,1,4,9>>::type check;
+  }
 }

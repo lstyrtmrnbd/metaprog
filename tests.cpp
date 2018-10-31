@@ -21,8 +21,17 @@ int main() {
   cout << get_name<one_test0>() << endl;
   cout << get_name<one_test1>() << endl;
 
+  // Ch.3 Tests
   cout << "3-0 tests: ";
   assert(three::zero::binary<101>::value != 0);
   //three::zero::binary<123>::value; //fails compilation as it should
+  cout << "success" << endl;
+
+  cout << "3-1 tests: ";
+  assert(three::one::check::value);
+  cout << "success" << endl;
+
+  cout << "3-2 tests: ";
+  assert(three::two::check::value);
   cout << "success" << endl;
 }
