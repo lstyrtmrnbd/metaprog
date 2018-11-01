@@ -1,10 +1,12 @@
 #include <boost/static_assert.hpp>
+#include <boost/mpl/apply.hpp>
 #include <boost/mpl/arithmetic.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/mpl/equal.hpp>
 #include <boost/mpl/int.hpp>
 #include <boost/mpl/transform.hpp>
 #include <boost/mpl/vector_c.hpp>
+#include <type_traits>
 
 using namespace boost::mpl;
 
@@ -65,5 +67,24 @@ namespace three {
     typedef typename transform<old_vec, boost::mpl::times<_1,_1>>::type new_vec;
 
     typedef typename boost::mpl::equal<new_vec, vector_c<int,1,4,9>>::type check;
+  }
+
+  /**
+   * Turn T into T**** by using twice twice
+   */
+  namespace three {
+
+    template <class F, class X>
+    struct twice : apply<F, typename apply<F,X>::type>
+    {};
+
+    template <typename T>
+    struct t_quad {
+
+      using one = typename twice<std::add_pointer<_1>, T>::type;
+      using two = typename twice<std::add_pointer<_1>, one>::type;
+
+      static const bool value = is_same<two, T****>::value;
+    };
   }
 }
