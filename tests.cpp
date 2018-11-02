@@ -4,6 +4,7 @@
 #include "print_type.hpp"
 #include "ch2.hpp"
 #include "ch3.hpp"
+#include "ch4.hpp"
 
 int main() {
   using namespace std;
@@ -41,4 +42,14 @@ int main() {
 
   cout << "3-4 tests: ";
   cout << three::four::t_quad<int>::value << endl;
+
+  // Ch.4 Tests
+
+  cout << "4-0 tests: ";
+  assert(four::zero::test_or<true>::value);
+  assert(four::zero::test_and<false>::value);
+  cout << "success" << endl;
+
+  cout << "4-1 tests: ";
+  cout << endl;
 }

@@ -98,10 +98,10 @@ namespace three {
     template <typename T>
     struct t_quad {
 
-      using addp = bind<std::add_pointer<_1>>;
-      using type = typename twice<twice<addp,_>, T>::type;
+      //using type = typename twice<twice<std::add_pointer<_>,_>, T>::type;
       
-      static const bool value = is_same<type, T****>::value;
+      //static const bool value = is_same<type, T****>::value;
+      static const bool value = false;
     };
   }
 }
