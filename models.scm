@@ -1,4 +1,4 @@
-;;; Models of some metafunctions in scheme
+;;; Models of some metafunctions in Scheme
 
 ;; 3-0
 (define fill-vec

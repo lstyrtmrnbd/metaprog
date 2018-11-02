@@ -2,8 +2,10 @@
 #include <boost/mpl/apply.hpp>
 #include <boost/mpl/arithmetic.hpp>
 #include <boost/mpl/assert.hpp>
+#include <boost/mpl/bind.hpp>
 #include <boost/mpl/equal.hpp>
 #include <boost/mpl/int.hpp>
+#include <boost/mpl/lambda.hpp>
 #include <boost/mpl/transform.hpp>
 #include <boost/mpl/vector_c.hpp>
 #include <type_traits>
@@ -69,14 +71,14 @@ namespace three {
     typedef typename boost::mpl::equal<new_vec, vector_c<int,1,4,9>>::type check;
   }
 
+  template <class F, class X>
+  struct twice : apply<F, typename apply<F,X>::type>
+  {};
+  
   /**
    * Turn T into T**** by using twice twice
    */
   namespace three {
-
-    template <class F, class X>
-    struct twice : apply<F, typename apply<F,X>::type>
-    {};
 
     template <typename T>
     struct t_quad {
@@ -85,6 +87,21 @@ namespace three {
       using two = typename twice<std::add_pointer<_1>, one>::type;
 
       static const bool value = is_same<two, T****>::value;
+    };
+  }
+
+  /**
+   * Turn T into T**** by using twice on itself
+   */
+  namespace four {
+
+    template <typename T>
+    struct t_quad {
+
+      using addp = bind<std::add_pointer<_1>>;
+      using type = typename twice<twice<addp,_>, T>::type;
+      
+      static const bool value = is_same<type, T****>::value;
     };
   }
 }

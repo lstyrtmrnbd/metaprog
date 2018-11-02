@@ -36,7 +36,9 @@ int main() {
   cout << "success" << endl;
 
   cout << "3-3 tests: ";
-  bool int_quad = three::three::t_quad<int>::value;
-  assert(int_quad);
+  assert(three::three::t_quad<int>::value);
   cout << "success" << endl;
+
+  cout << "3-4 tests: ";
+  cout << three::four::t_quad<int>::value << endl;
 }
