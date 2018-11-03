@@ -33,20 +33,16 @@ namespace four {
   namespace one {
 
     template <class A, class B>
-    struct logical_or {
-
-      static const bool value = if_<A,
-				    bool_<true>,
-				    B>::type::value;
-    };
+    struct logical_or : if_<A,
+			    bool_<true>,
+			    B>::type
+    {};
 
     template <class A, class B>
-    struct logical_and {
-
-      static const bool value = if_<not_<A>,
-				    bool_<false>,
-				    B>::type::value;
-    };
+    struct logical_and : if_<not_<A>,
+			     bool_<false>,
+			     B>::type
+    {};
 
     // tests from 4-0 restated in terms of corresponding solutions
     struct fail {};
@@ -60,7 +56,6 @@ namespace four {
     template <bool B>
     struct test_and : not_<logical_and<bool_<B>, fail>>
     {};
-    
   }
   
 }

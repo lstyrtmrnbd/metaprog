@@ -52,6 +52,6 @@ int main() {
 
   cout << "4-1 tests: ";
   assert(four::one::test_or<true>::value);
-  cout << four::one::test_and<false>::value;
-  cout << endl;
+  assert(four::one::test_and<false>::value);
+  cout << "success" << endl;
 }
